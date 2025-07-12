@@ -39,6 +39,19 @@ output "talos_machine_configurations_worker" {
   sensitive   = true
 }
 
+output "talos_machine_secrets" {
+  description = "Talos machine secrets. Used for generating talos machine-configs outside this module."
+  value       = talos_machine_secrets.this.machine_secrets
+  sensitive   = true
+}
+
+output "kube_api_internal" {
+  description = "Kube API endpoint. Used for generating talos machine-configs outside this module."
+  value       = local.kube_api_url_internal
+  sensitive   = true
+}
+
+
 output "control_plane_private_ipv4_list" {
   description = "List of private IPv4 addresses assigned to control plane nodes."
   value       = local.control_plane_private_ipv4_list
