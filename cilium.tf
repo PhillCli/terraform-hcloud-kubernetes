@@ -90,8 +90,16 @@ data "helm_template" "cilium" {
       value = var.cilium_bpf_datapath_mode
     },
     {
+      name  = "bpf.lbExternalClusterIP"
+      value = true
+    },
+    {
       name  = "loadBalancer.acceleration"
-      value = "native"
+      value = "best-effort"
+    },
+    {
+      name  = "socketLB.hostNamespaceOnly"
+      value = true
     },
     {
       name  = "installNoConntrackIptablesRules"
