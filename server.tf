@@ -42,7 +42,8 @@ resource "hcloud_server" "control_plane" {
   ]
 
   public_net {
-    ipv4_enabled = var.talos_public_ipv4_enabled
+    #ipv4_enabled = var.talos_public_ipv4_enabled
+    ipv4_enabled = true
     ipv6_enabled = var.talos_public_ipv6_enabled
   }
 
