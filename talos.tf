@@ -164,7 +164,7 @@ resource "terraform_data" "upgrade_kubernetes" {
       if ${local.cluster_initialized}; then
         echo "Start upgrading Kubernetes"
         ${local.talos_healthcheck_enabled} && talosctl --talosconfig "$talosconfig_tmp" health --server -n '${local.talos_primary_node_private_ipv4}'
-        talosctl --talosconfig "$talosconfig_tmp" upgrade-k8s -n '${local.talos_primary_node_private_ipv4}' --endpoint '${local.kube_api_url_external}' --to '${var.kubernetes_version}'
+        talosctl --talosconfig "$talosconfig_tmp" upgrade-k8s -n '${local.talos_primary_node_private_ipv4}' --endpoint '${local.kube_api_url_external}' --to '${var.kubernetes_version}' --upgrade-kubelet=false
         ${local.talos_healthcheck_enabled} && talosctl --talosconfig "$talosconfig_tmp" health --server -n '${local.talos_primary_node_private_ipv4}'
         echo "Kubernetes upgraded successfully"
       else
@@ -255,7 +255,7 @@ resource "terraform_data" "synchronize_manifests" {
       if ${local.cluster_initialized}; then
         echo "Start synchronizing manifests"
         ${local.talos_healthcheck_enabled} && talosctl --talosconfig "$talosconfig_tmp" health --server -n '${local.talos_primary_node_private_ipv4}'
-        talosctl --talosconfig "$talosconfig_tmp" upgrade-k8s -n '${local.talos_primary_node_private_ipv4}' --endpoint '${local.kube_api_url_external}' --to '${var.kubernetes_version}'
+        talosctl --talosconfig "$talosconfig_tmp" upgrade-k8s -n '${local.talos_primary_node_private_ipv4}' --endpoint '${local.kube_api_url_external}' --to '${var.kubernetes_version}' --upgrade-kubelet=false
         ${local.talos_healthcheck_enabled} && talosctl --talosconfig "$talosconfig_tmp" health --server -n '${local.talos_primary_node_private_ipv4}'
         echo "Manifests synchronized successfully"
       else
