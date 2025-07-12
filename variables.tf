@@ -1275,6 +1275,13 @@ variable "cilium_hubble_ui_enabled" {
 }
 
 
+variable "cilium_tailscale_enabled" {
+  type        = bool
+  default     = false
+  description = "Enables changes to cillium config, required by a tailscale network devices and taiscale operator."
+}
+
+
 # Metrics Server
 variable "metrics_server_helm_repository" {
   type        = string
