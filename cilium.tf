@@ -54,6 +54,10 @@ data "helm_template" "cilium" {
 
   set = [
     {
+      name  = "extraArgs"
+      value = "{--direct-routing-device=tailscale0}"
+    },
+    {
       name  = "operator.replicas"
       value = local.control_plane_sum > 1 ? 2 : 1
     },
