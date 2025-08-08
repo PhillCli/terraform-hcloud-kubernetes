@@ -72,7 +72,7 @@ locals {
       encryption-passphrase = (
         var.hcloud_csi_encryption_passphrase != null ?
         base64encode(var.hcloud_csi_encryption_passphrase) :
-        base64encode(random_bytes.hcloud_csi_encryption_key[0].hex)
+        base64encode(var.hcloud_csi_enabled ? random_bytes.hcloud_csi_encryption_key[0].hex : "")
       )
     }
   }
