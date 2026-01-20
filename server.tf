@@ -40,7 +40,10 @@ resource "hcloud_server" "control_plane" {
   firewall_ids = [local.firewall_id]
 
   public_net {
-    ipv4_enabled = var.talos_public_ipv4_enabled
+    # NOTE: till https://github.com/siderolabs/talos/issues/7184 lands, we need internet egress on a node itself
+    # as it's not possible to configure to use tailscale subnet router as a NAT gateway for internet egress, on a talos node;
+    # so attach ipv6 and remove all inbound traffic to all control-plane nodes, except from hcloud network
+    ipv4_enabled = var.talos_public_ipv4_enabled || var.cluster_access == "private"
     ipv6_enabled = var.talos_public_ipv6_enabled
   }
 

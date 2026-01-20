@@ -56,13 +56,15 @@ data "helm_template" "cilium" {
       ipam = {
         mode = "kubernetes"
       }
+      extraArgs             = var.cilium_tailscale_enabled ? ["--direct-routing-device=tailscale0"] : []
       routingMode           = var.cilium_routing_mode
       ipv4NativeRoutingCIDR = local.network_native_routing_ipv4_cidr
       policyCIDRMatchMode   = var.cilium_policy_cidr_match_mode
       bpf = {
-        masquerade        = var.cilium_kube_proxy_replacement_enabled
-        datapathMode      = var.cilium_bpf_datapath_mode
-        hostLegacyRouting = local.cilium_ipsec_enabled
+        masquerade          = var.cilium_kube_proxy_replacement_enabled
+        datapathMode        = var.cilium_bpf_datapath_mode
+        hostLegacyRouting   = local.cilium_ipsec_enabled
+        lbExternalClusterIP = var.cilium_tailscale_enabled # ref: https://forum.tailscale.com/t/tailscale-proxy-in-k8s-with-cilium-works-with-pod-not-with-svc/1910/5
       }
       encryption = {
         enabled = var.cilium_encryption_enabled
